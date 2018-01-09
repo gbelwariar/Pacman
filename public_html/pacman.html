@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Pacman</title>
+        <link rel='shortcut icon' href='pacman.ico'>
+        <link rel='stylesheet' href='pacman-game/pacman-game.css'>
+        <link rel='stylesheet' href='scoreboard/scoreboard.css'>        
+        <script src='angular.js'></script>
+        <script src='pacman.js'></script>
+        <script src='services/scoreboard-service.js'></script>
+        <script src='services/enemy-service.js'></script>  
+        <script src='services/value-service.js'></script> 
+        <script src='services/constant-service.js'></script>                
+        <script src='pacman-game/pacman-game-controller.js'></script>
+        <script src='scoreboard/scoreboard-controller.js'></script>        
+        <script src='pacman-game/pacman-game-directive.js'></script>
+        <script src='scoreboard/scoreboard-component.js'></script>
+    </head>
+    <body ng-app='pacman'>
+        <div>
+            <pacman-game></pacman-game>
+        </div>
+        <div>
+            <scoreboard></scoreboard>
+        </div>
+    </body>
+</html>
