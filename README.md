@@ -1,2 +1,2 @@
 # Pacman
-The classical arcade game with some tweaks and a secret cheat code!
+The classical arcade game with some interesting tweaks and secret cheat codes!
