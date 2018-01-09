@@ -1,0 +1,8 @@
+.horizontal-block {
+  float: left;    
+}
+
+.wrapper {
+    width: 100%;
+    clear: both;
+}
