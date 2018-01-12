@@ -16,14 +16,20 @@ function pacmanGameDirective(
           var pacmanDownHTML = "<img height='20' width='20' src='images/pacman_down.png' class='horizontal-block'>";
           var cherryHTML = "<img height='20' width='20' src='images/cherry.png' class='horizontal-block'>";
           var afterLosingHTML = "<img height='600' width='800' src='images/after_losing.gif' class='horizontal-block'>";
-          
+          var afterWinningHTML = "<img height='600' width='800' src='images/after_winning.gif' class='horizontal-block'>";
+
           var previousEvent = null;
           // We have to initialize this variable outside the event handler.
           // See this for more - https://stackoverflow.com/questions/17545389/global-and-local-variable-on-the-event-handler-function
           var currIndex = -1;     
+          // Refers to the location of the location of the cherries.
           var cherryFirstPos = 634, cherrySecondPos = 636;
-          var pacDotPoints = 10, cherryPoints = 100;
-          var cherryFirstPosTarget = 200, cherrySecondPosTarget = 800;
+          var pacDotPoints = 10, cherryPoints = 100, pacDotsConsumed = 0;
+          // Refers to the total pac dots present in the board.
+          // This value is pre-calculated to avoid extra computations.
+          var totalPacDots = 312;
+          // Refers to the score after or equal to which the pacman will have the option to consume the cherry.
+          var cherryFirstPosTarget = 200, cherrySecondPosTarget = 800;  
           var cherriesExposed = 0, totalCherries = 2;
           var visited = new Array(gameboard.board.length);
           var intervalPromises = [];
@@ -39,7 +45,7 @@ function pacmanGameDirective(
           var pacmanHTML = '';
           for (var i=0; i<gameboard.board.length; i++) {
               visited[i] = false;
-              if (i%gameboard.breadth === 0) {
+              if (i % gameboard.breadth === 0) {
                   if (i !== 0) {
                       pacmanHTML += "</div>";
                   }
@@ -179,11 +185,20 @@ function pacmanGameDirective(
                   if (gameboard.board.charAt(nextPos) === '.' &&
                           visited[nextPos] === false) {
                       ctrl.eat(pacDotPoints);
+                      pacDotsConsumed++;
                       visited[nextPos] = true;
                   } else if (gameboard.board.charAt(nextPos) === 'C' &&
                           visited[nextPos] === false) {
                       ctrl.eat(cherryPoints);
                       visited[nextPos] = true;
+                  }
+                  if (pacDotsConsumed >= totalPacDots) {
+                      alert('You won!');
+                      angular.forEach(
+                              intervalPromises, function(intervalPromise) {
+                                  $interval.cancel(intervalPromise); 
+                              });
+                      elem.html(afterWinningHTML);                      
                   }
               }
 
@@ -194,13 +209,12 @@ function pacmanGameDirective(
                * having one for each of the enemies. However, it turned out
                * that this was indeed a bad approach and separating the 
                * movements of each of the enemies into different $interval
-               * promise was a better choice. For example, the last enemy
+               * promises was a better choice. For example, the last enemy
                * reached at its fixed position in the scatter mode after 29 sec
                * in the former approach as oppesed to 20 sec in the latter
                * approach. It also gave a much better control over the movement
                * of each of the enemies.
                */
-              
               // Blinky's move.
               getEnemyPromise(enemies.blinky, 1, 60, enemyMovementMode.SCATTER)
                       .then(function() {
@@ -344,6 +358,7 @@ function pacmanGameDirective(
       }
     };
 };
+
 
 angular
         .module('pacman')
