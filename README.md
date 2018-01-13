@@ -12,7 +12,7 @@ When an enemy is approaching towards you, then move as fast as you can towards i
 
 ## Screenshots (when played in Chrome Browser)
 
-<kbd>![Pacman](/screenshots/screenshot.GIF?raw=true "Pacman")<kbd>
+<img src="/screenshots/screenshot.GIF" alt="Pacman"> </div>
 
 ## Languages/Frameworks Used - 
 
