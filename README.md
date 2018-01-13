@@ -17,7 +17,7 @@ When an enemy is approaching towards you, then move as fast as you can towards i
 ## Languages/Frameworks Used - 
 
 1) JavaScript  
-2) AngularJS (1.x)
+2) AngularJS (1.x)<br/>
 3) HTML
 4) CSS
 
