@@ -12,12 +12,12 @@ When an enemy is approaching towards you, then move as fast as you can towards i
 
 ## Screenshots (when played in Chrome Browser)
 
-<img src="/screenshots/screenshot.GIF" alt="Pacman"> </img>
+<img src="screenshots/screenshot.GIF" class="img-responsive" alt=""> 
 
 ## Languages/Frameworks Used - 
 
 1) JavaScript  
-2) AngularJS (1.x)<br/>
+2) AngularJS (1.x)
 3) HTML
 4) CSS
 
