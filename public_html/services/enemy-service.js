@@ -3,7 +3,7 @@
 function EnemyService(gameboard, enemyMovementMode) {
     // Initialize Blinky.
     var blinkyScatterModeFixedPos = 40;    
-    var blinkyHTML = "<img height='20' width='20' src='images/blinky.png' class='horizontal-block'>";
+    var blinkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/blinky.png' class='horizontal-block'>";
     this.blinky = new Enemy(
                     blinkyHTML, 
                     gameboard,
@@ -15,7 +15,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Pinky.
     var pinkyScatterModeFixedPos = 0;    
-    var pinkyHTML = "<img height='20' width='20' src='images/pinky.png' class='horizontal-block'>";
+    var pinkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pinky.png' class='horizontal-block'>";
     this.pinky = new Enemy(
                     pinkyHTML, 
                     gameboard,
@@ -94,26 +94,44 @@ function Enemy(
     this.targetPosStrategyInNonScatterMode_ = targetPosStrategyInNonScatterMode;
 };  
 
-// Returns the current position of this enemy.
-// Document this API better since this is a public API.
+
+/**
+ * Returns the current position of this enemy.
+ * 
+ * @return {number}
+ */				
 Enemy.prototype.getCurrentPos = function() {
     return this.currentPos_;
 };
 
-// Returns the HTML template corresponding to this enemy.
-// Document this API better since this is a public API.
+
+/**
+ * Returns the HTML template corresponding to this enemy.
+ * 
+ * @return {string}
+ */				
 Enemy.prototype.getHTMLTemplate = function() {
     return this.htmlTemplate_;
 };
 
-// Returns the current position of this enemy.
-// This API is exposed only to the free functions etc present in this file.
+
+/**
+ * Returns the current position of this enemy.
+ * (This "semi-public" API is exposed only to the free functions etc present in 
+ * this file).
+ * 
+ * @return {number}
+ */				
 Enemy.prototype.getScatterModeFixedPos = function() {
     return this.scatterModeFixedPos;
 };
 
- // Returns the current position of this enemy.
- // Document this API better since this is a public API.
+
+/**
+ * Returns the next position of this enemy.
+ * 
+ * @return {number}
+ */				
 Enemy.prototype.getNextPos = function(mode, prevPacmanPos, currentPacmanPos) {
     var nextPos;
     var board = this.gameboard_.board;
@@ -304,6 +322,9 @@ function inkyTargetPosStrategyInNonScatterMode_(
             getYCoordinate_(twoPositionAheadOfCurrentPacmanPos, breadth);
     var twoPositionAheadOfCurrentPacmanPosXCoordinate =
             getXCoordinate_(twoPositionAheadOfCurrentPacmanPos, breadth);
+    // Use law of trigonometry to find the target position according to the 
+    // strategy mentioned in "The Blue Ghost" section in -
+    // http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior
     var targetPos =
             ((2*twoPositionAheadOfCurrentPacmanPosYCoordinate-blinkyYCoordinate)
                 * breadth) + 2 * twoPositionAheadOfCurrentPacmanPosXCoordinate -
@@ -328,7 +349,8 @@ function getNPositionAheadOfPacman_(
     // The second condition in the below OR statement corresponds to the case
     // when the pacman never moved yet. Then automatically pacman faces towards
     // right and hence follow the same logic as when pacman moves one position
-    // towards right and then faces right.
+    // towards right and then faces right. Hence the below piece of code
+    // assumes that the pacman initially would be facing towards right. 
     if (currentPacmanPos === prevPacmanPos + 1 ||
             currentPacmanPos === prevPacmanPos) {
         // If the nPositionAheadOfCurrentPacmanPos is found as the next row,
