@@ -27,7 +27,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Inky. Note that 'Inky' has 'Blinky' as its dependency.
     var inkyScatterModeFixedPos = gameboard.board.length - 1;    
-    var inkyHTML = "<img height='20' width='20' src='images/inky.png' class='horizontal-block'>";
+    var inkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/inky.png' class='horizontal-block'>";
     this.inky = new Enemy(
                     inkyHTML, 
                     gameboard,
@@ -39,7 +39,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Clyde.
     var clydeScatterModeFixedPos = gameboard.board.length - gameboard.breadth;    
-    var clydeHTML = "<img height='20' width='20' src='images/clyde.png' class='horizontal-block'>";
+    var clydeHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/clyde.png' class='horizontal-block'>";
     this.clyde = new Enemy(
                     clydeHTML, 
                     gameboard,
