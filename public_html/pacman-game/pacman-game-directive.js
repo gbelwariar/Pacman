@@ -4,19 +4,18 @@ function pacmanGameDirective(
     return {
       controller: 'PacmanGameCtrl',
       compile: function(elem) {
-          
-          var monsterGateHTML = "<img height='20' width='20' src='images/monster_gate.png' class='horizontal-block'>";
-          var emptyHTML = "<img height='20' width='20' src='images/empty.png' class='horizontal-block'>";
-          var dotHTML = "<img height='20' width='20' src='images/dot.png' class='horizontal-block'>";
-          var wallHTML = "<img height='20' width='20' src='images/wall.png' class='horizontal-block'>";
-          var spaceWithNoFoodHTML = "<img height='20' width='20' src='images/empty_space.png' class='horizontal-block'>";
-          var pacmanRightHTML = "<img height='20' width='20' src='images/pacman_right.png' class='horizontal-block'>";
-          var pacmanLeftHTML = "<img height='20' width='20' src='images/pacman_left.png' class='horizontal-block'>";
-          var pacmanUpHTML = "<img height='20' width='20' src='images/pacman_top.png' class='horizontal-block'>";
-          var pacmanDownHTML = "<img height='20' width='20' src='images/pacman_down.png' class='horizontal-block'>";
-          var cherryHTML = "<img height='20' width='20' src='images/cherry.png' class='horizontal-block'>";
-          var afterLosingHTML = "<img height='600' width='800' src='images/after_losing.gif' class='horizontal-block'>";
-          var afterWinningHTML = "<img height='600' width='800' src='images/after_winning.gif' class='horizontal-block'>";
+          var monsterGateHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/monster_gate.png' class='horizontal-block'>";
+          var emptyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/empty.png' class='horizontal-block'>";
+          var dotHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/dot.png' class='horizontal-block'>";
+          var wallHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/wall.png' class='horizontal-block'/>";
+          var spaceWithNoFoodHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/empty_space.png' class='horizontal-block'>";
+          var pacmanRightHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pacman_right.png' class='horizontal-block'>";
+          var pacmanLeftHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pacman_left.png' class='horizontal-block'>";
+          var pacmanUpHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pacman_top.png' class='horizontal-block'>";
+          var pacmanDownHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pacman_down.png' class='horizontal-block'>";
+          var cherryHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/cherry.png' class='horizontal-block'>";
+          var afterLosingHTML = "<img height='600' width='800' src='http://localhost:8383/pacman/images/after_losing.gif' class='horizontal-block'>";
+          var afterWinningHTML = "<img height='600' width='800' src='http://localhost:8383/pacman/images/after_winning.gif' class='horizontal-block'>";
 
           var previousEvent = null;
           // We have to initialize this variable outside the event handler.
