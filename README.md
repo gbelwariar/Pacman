@@ -4,7 +4,7 @@ The [classical arcade game](https://en.wikipedia.org/wiki/Pac-Man) with some int
 
 ## How to play the game 
 
-Download the repository - [Pacman](https://github.com/gbelwariar/Pacman) and execute the HTML file - **pacman.html** (*TypeRacer/public_html/pacman.html*) through the local host using any browser, preferably Google Chrome.
+Download the repository - [Pacman](https://github.com/gbelwariar/Pacman) and execute the run file - **pacman.html** (*TypeRacer/public_html/pacman.html*) in Chrome browser by serving it from a server(e.g - localhost).
 
 ## Spoiler Alert! - Cheat Code
 
