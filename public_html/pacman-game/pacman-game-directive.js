@@ -1,4 +1,3 @@
-// Properly comment out and mention the parameters and the return values.
 function pacmanGameDirective(
         $document, $interval, gameboard, enemyMovementMode, enemyService) {
     return {
@@ -86,28 +85,6 @@ function pacmanGameDirective(
           pacmanHTML += "</div>";
           elem.html(pacmanHTML);
           return function(scope, elem, attr, ctrl) {
-              // Providing cherry.
-              scope.$watch(function() {
-                  return ctrl.getScore();
-              }, function(newVal, oldVal) {
-                  if (newVal !== oldVal && cherriesExposed < totalCherries) {
-                      if (newVal >= cherryFirstPosTarget &&
-                              cherriesExposed === 0) {
-                          replaceHTML(cherryFirstPos, cherryHTML);
-                          cherriesExposed++;
-                          replaceBoardCharacter(cherryFirstPos, 'C');
-                          visited[cherryFirstPos] = false;
-                      } 
-                      if (newVal >= cherrySecondPosTarget &&
-                              cherriesExposed === 1) {
-                          replaceHTML(cherrySecondPos, cherryHTML);
-                          cherriesExposed++;
-                          replaceBoardCharacter(cherrySecondPos, 'C');
-                          visited[cherrySecondPos] = false;
-                      }
-                  }
-              });
-              
               // User gameplay.
               $document.on('keydown', function(event) {
                   if (previousEvent === null ||
@@ -130,7 +107,25 @@ function pacmanGameDirective(
                                                 gameboard.breadth;
                               break;
                       }
-                      walk(currentPacmanPos, nextPacmanPos);              
+                      walk(currentPacmanPos, nextPacmanPos);  
+                      
+                      // Provide cherry, if eligible.
+                      if (cherriesExposed < totalCherries) {
+                          if (ctrl.getScore() >= cherryFirstPosTarget &&
+                                  cherriesExposed === 0) {
+                              replaceHTML(cherryFirstPos, cherryHTML);
+                              cherriesExposed++;
+                              replaceBoardCharacter(cherryFirstPos, 'C');
+                              visited[cherryFirstPos] = false;
+                          } 
+                          if (ctrl.getScore() >= cherrySecondPosTarget &&
+                                  cherriesExposed === 1) {
+                              replaceHTML(cherrySecondPos, cherryHTML);
+                              cherriesExposed++;
+                              replaceBoardCharacter(cherrySecondPos, 'C');
+                              visited[cherrySecondPos] = false;
+                          }
+                      }                      
                   }
               });
               
@@ -140,8 +135,6 @@ function pacmanGameDirective(
               
               // Function that make a move.
               function walk(currPos, nextPos) {
-                  // If any of the enemy meets pac-man at the nextPos, then take
-                  // one life.
                   // If there is a wall at the nextPos, provided that the 
                   // currentPos is not a transit cell, or if the next move is 
                   // not possible, then don't do anything.
@@ -180,7 +173,8 @@ function pacmanGameDirective(
                       replaceHTML(nextPos, pacmanUpHTML);
                       currentPacmanPos = nextPos;
                   } 
-                  // Insert the logic of incrementing the bonus collected here.
+                  
+                  // Logic for incrementing the bonus collected here.
                   if (gameboard.board.charAt(nextPos) === '.' &&
                           visited[nextPos] === false) {
                       ctrl.eat(pacDotPoints);
@@ -325,9 +319,6 @@ function pacmanGameDirective(
                       var currentEnemyPos = enemy.getCurrentPos();
                       var nextEnemyPos = enemy.getNextPos(
                               mode, prevPacmanPos, currentPacmanPos);
-                      // Handle the case when it collides with other
-                      // enemies. If it works fine automatically, then
-                      // leave it as it it.
                       var templateToReplaceWith = spaceWithNoFoodHTML;
                       if (gameboard.board.charAt(currentEnemyPos)=== '.'
                               && visited[currentEnemyPos] === false) {
