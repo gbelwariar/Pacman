@@ -3,7 +3,7 @@
 function EnemyService(gameboard, enemyMovementMode) {
     // Initialize Blinky.
     var blinkyScatterModeFixedPos = 40;    
-    var blinkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/blinky.png' class='horizontal-block'>";
+    var blinkyHTML = "<img height='20' width='20' src='images/blinky.png' class='horizontal-block'>";
     this.blinky = new Enemy(
                     blinkyHTML, 
                     gameboard,
@@ -15,7 +15,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Pinky.
     var pinkyScatterModeFixedPos = 0;    
-    var pinkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/pinky.png' class='horizontal-block'>";
+    var pinkyHTML = "<img height='20' width='20' src='images/pinky.png' class='horizontal-block'>";
     this.pinky = new Enemy(
                     pinkyHTML, 
                     gameboard,
@@ -27,7 +27,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Inky. Note that 'Inky' has 'Blinky' as its dependency.
     var inkyScatterModeFixedPos = gameboard.board.length - 1;    
-    var inkyHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/inky.png' class='horizontal-block'>";
+    var inkyHTML = "<img height='20' width='20' src='images/inky.png' class='horizontal-block'>";
     this.inky = new Enemy(
                     inkyHTML, 
                     gameboard,
@@ -39,7 +39,7 @@ function EnemyService(gameboard, enemyMovementMode) {
 
     // Initialize Clyde.
     var clydeScatterModeFixedPos = gameboard.board.length - gameboard.breadth;    
-    var clydeHTML = "<img height='20' width='20' src='http://localhost:8383/pacman/images/clyde.png' class='horizontal-block'>";
+    var clydeHTML = "<img height='20' width='20' src='images/clyde.png' class='horizontal-block'>";
     this.clyde = new Enemy(
                     clydeHTML, 
                     gameboard,
