@@ -187,11 +187,7 @@ function pacmanGameDirective(
                   }
                   if (pacDotsConsumed >= totalPacDots) {
                       alert('You won!');
-                      angular.forEach(
-                              intervalPromises, function(intervalPromise) {
-                                  $interval.cancel(intervalPromise); 
-                              });
-                      elem.html(afterWinningHTML);                      
+                      cancelAllEventsAndShowResultTemplate(afterWinningHTML);
                   }
               }
 
@@ -335,15 +331,21 @@ function pacmanGameDirective(
                       replaceHTML(nextEnemyPos, enemy.getHTMLTemplate());
                       if (currentEnemyPos === currentPacmanPos) {
                           alert('You lost!');
-                          angular.forEach(
-                                  intervalPromises, function(intervalPromise) {
-                                      $interval.cancel(intervalPromise); 
-                                  });
-                          elem.html(afterLosingHTML);
+                          cancelAllEventsAndShowResultTemplate(afterLosingHTML);
                       }                                    
                   }, speed, count);
                   return resPromise;
-              }          
+              }         
+              
+              function cancelAllEventsAndShowResultTemplate(resultTemplate) {
+                  angular.forEach(
+                          intervalPromises, function(intervalPromise) {
+                              $interval.cancel(intervalPromise); 
+                          });
+                  elem.html(resultTemplate);
+                  $document.off('keydown');
+                  $document.off('keyup');                                            
+              }
           };
       }
     };
