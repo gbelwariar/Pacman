@@ -57,6 +57,7 @@ function EnemyService(gameboard, enemyMovementMode) {
     };    
 }
 
+
 // Enemy "class".
 function Enemy(
         htmlTemplate,
@@ -130,29 +131,15 @@ Enemy.prototype.getScatterModeFixedPos = function() {
 /**
  * Returns the next position of this enemy.
  * 
+ * @param {mode} mode The current mode of the enemy.
+ * @param {prevPacmanPos} prevPacmanPos Previous position of pacman.
+ * @param {currentPacmanPos} currentPacmanPos Current position of pacman.
  * @return {number}
  */				
 Enemy.prototype.getNextPos = function(mode, prevPacmanPos, currentPacmanPos) {
     var nextPos;
     var board = this.gameboard_.board;
     var breadth = this.gameboard_.breadth;
-    /*
-     * Handle the case when the enemy is inside the gate. In that case, the
-     * enemies try to move out of the gate. However, if the enemy is initially 
-  1  * in the 'SCATTER' mode then it will automatically reach its
-     * scatterModeFixedPos.
-     */
-    
-    /*
-  2  * Will your code work in the situation when two or more enemies collide?
-     */    
-    
-    /*
-     * May or may not free different ghosts at different times as shown in 
-  3  * Google's game. But this would be done from inside the
-     * pacman-game-directive.
-     */
-    
     // Initially all are in SCATTER mode hence the control never enters this
     // for loop.
     if (mode !== this.previousMode_) {
@@ -284,6 +271,7 @@ Enemy.prototype.getNextPos = function(mode, prevPacmanPos, currentPacmanPos) {
     return nextPos;
 };
 
+
 function getPositionInGameBoard_(board, character) {
     var res;
     for (var i = 0; i < board.length; i++) {
@@ -294,11 +282,13 @@ function getPositionInGameBoard_(board, character) {
     return res;
 }
 
+
 // Blinky's target position strategy in non-scatter mode.
 function blinkyTargetPosStrategyInNonScatterMode_(
         boardLength, breadth, prevPacmanPos, currentPacmanPos, dependency) {
     return currentPacmanPos;
 }
+
 
 // Pinky's target position strategy in non-scatter mode.
 function pinkyTargetPosStrategyInNonScatterMode_(
@@ -306,6 +296,7 @@ function pinkyTargetPosStrategyInNonScatterMode_(
     return getNPositionAheadOfPacman_(
             currentPacmanPos, prevPacmanPos, 4, breadth, boardLength);    
 }
+
 
 // Inky's target position strategy in non-scatter mode.
 function inkyTargetPosStrategyInNonScatterMode_(
@@ -332,6 +323,7 @@ function inkyTargetPosStrategyInNonScatterMode_(
     return targetPos;
 }
 
+
 // Clyde's target position strategy in non-scatter mode.
 function clydeTargetPosStrategyInNonScatterMode_(
         boardLength, breadth, prevPacmanPos, currentPacmanPos, dependency) {
@@ -342,6 +334,7 @@ function clydeTargetPosStrategyInNonScatterMode_(
         return dependency.getScatterModeFixedPos();
     }
 }
+
 
 function getNPositionAheadOfPacman_(
         currentPacmanPos, prevPacmanPos, N, breadth, boardLength) {
@@ -399,13 +392,16 @@ function getNPositionAheadOfPacman_(
     return nPositionAheadOfCurrentPacmanPos;
 }
 
+
 function getYCoordinate_(index, breadth) {
     return Math.floor(index / breadth);
 }
 
+
 function getXCoordinate_(index, breadth) {
     return index - getYCoordinate_(index, breadth) * breadth;
 }
+
 
 function getDistanceSquare_(index1, index2, breadth) {
     var diffXCoordinate =
@@ -415,12 +411,14 @@ function getDistanceSquare_(index1, index2, breadth) {
     return diffXCoordinate*diffXCoordinate + diffYCoordinate*diffYCoordinate;
 }
 
+
 function makePosAndDistanceSquarePair_(pos, distanceSquare) {
     return {
       pos: pos,
       distanceSquare: distanceSquare
     };
 }
+
 
 function makeChoice_(currentPos, prevPos, targetPos, board, breadth) {
     /**
