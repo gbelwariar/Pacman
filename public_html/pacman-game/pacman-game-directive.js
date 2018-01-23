@@ -9,7 +9,7 @@ function pacmanGameDirective(
           var monsterGateHTML = "<img height='20' width='20' src='images/monster_gate.png' class='horizontal-block'>";
           var emptyHTML = "<img height='20' width='20' src='images/empty.png' class='horizontal-block'>";
           var dotHTML = "<img height='20' width='20' src='images/dot.png' class='horizontal-block'>";
-          var wallHTML = "<img height='20' width='20' src='images/wall.png' class='horizontal-block'>";
+          var wallHTML = "<img height='20' width='20' src='images/wall.png' class='horizontal-block'/>";
           var spaceWithNoFoodHTML = "<img height='20' width='20' src='images/empty_space.png' class='horizontal-block'>";
           var pacmanRightHTML = "<img height='20' width='20' src='images/pacman_right.png' class='horizontal-block'>";
           var pacmanLeftHTML = "<img height='20' width='20' src='images/pacman_left.png' class='horizontal-block'>";
@@ -194,78 +194,80 @@ function pacmanGameDirective(
                   }
               }
 
-             /**
-              * The following code is required to make the enemies move.
-              * Initially it was thought that moving all the enemies inside
-              * a single $interval promise call would be much faster than 
-              * having one for each of the enemies. However, it turned out
-              * that this was indeed a bad approach and separating the 
-              * movements of each of the enemies into different $interval
-              * promises was a better choice. For example, the last enemy
-              * reached at its fixed position in the scatter mode after 29 sec
-              * in the former approach as oppesed to 20 sec in the latter
-              * approach. It also gave a much better control over the movement
-              * of each of the enemies.
-              */
-              // Blinky's move.
-              getEnemyPromise(enemies.blinky, 1, 60, enemyMovementMode.SCATTER)
-                      .then(function() {
-                          getEnemyPromise(enemies.blinky, 1, 180, enemyMovementMode.CHASE)
-                              .then(function() {
-                                  getEnemyPromise(enemies.blinky, 1, 60, enemyMovementMode.SCATTER)
-                                      .then(function() {
-                                            getEnemyPromise(enemies.blinky, 1, undefined, enemyMovementMode.CHASE);
-                                        })
-                                      .catch(angular.noop);
-                              })
-                              .catch(angular.noop);
-                      })
-                      .catch(angular.noop);
+              if (scope.environment === 'Production') {
+                  /**
+                   * The following code is required to make the enemies move.
+                   * Initially it was thought that moving all the enemies inside
+                   * a single $interval promise call would be much faster than 
+                   * having one for each of the enemies. However, it turned out
+                   * that this was indeed a bad approach and separating the 
+                   * movements of each of the enemies into different $interval
+                   * promises was a better choice. For example, the last enemy
+                   * reached at its fixed position in the scatter mode after 29 sec
+                   * in the former approach as oppesed to 20 sec in the latter
+                   * approach. It also gave a much better control over the movement
+                   * of each of the enemies.
+                   */
+                   // Blinky's move.
+                   getEnemyPromise(enemies.blinky, 1, 60, enemyMovementMode.SCATTER)
+                            .then(function() {
+                                getEnemyPromise(enemies.blinky, 1, 180, enemyMovementMode.CHASE)
+                                    .then(function() {
+                                        getEnemyPromise(enemies.blinky, 1, 60, enemyMovementMode.SCATTER)
+                                            .then(function() {
+                                                  getEnemyPromise(enemies.blinky, 1, undefined, enemyMovementMode.CHASE);
+                                              })
+                                              .catch(angular.noop);
+                                    })
+                                    .catch(angular.noop);
+                            })
+                            .catch(angular.noop);
 
-              // Pinky's move.
-              getEnemyPromise(enemies.pinky, 1, 60, enemyMovementMode.SCATTER)
-                      .then(function() {
-                          getEnemyPromise(enemies.pinky, 1, 180, enemyMovementMode.CHASE)
-                              .then(function() {
-                                  getEnemyPromise(enemies.pinky, 1, 60, enemyMovementMode.SCATTER)
+                    // Pinky's move.
+                    getEnemyPromise(enemies.pinky, 1, 60, enemyMovementMode.SCATTER)
+                            .then(function() {
+                                getEnemyPromise(enemies.pinky, 1, 180, enemyMovementMode.CHASE)
+                                    .then(function() {
+                                        getEnemyPromise(enemies.pinky, 1, 60, enemyMovementMode.SCATTER)
+                                            .then(function() {
+                                                  getEnemyPromise(enemies.pinky, 1, undefined, enemyMovementMode.CHASE);
+                                            })
+                                            .catch(angular.noop);
+                                    })
+                                    .catch(angular.noop);
+                            })
+                            .catch(angular.noop);
+                            
+                    // Inky's move.
+                    getEnemyPromise(enemies.inky, 1, 60, enemyMovementMode.SCATTER)
+                            .then(function() {
+                                getEnemyPromise(enemies.inky, 1, 180, enemyMovementMode.CHASE)
                                       .then(function() {
-                                            getEnemyPromise(enemies.pinky, 1, undefined, enemyMovementMode.CHASE);
+                                          getEnemyPromise(enemies.inky, 1, 60, enemyMovementMode.SCATTER)
+                                                  .then(function() {
+                                                      getEnemyPromise(enemies.inky, 1, undefined, enemyMovementMode.CHASE);
+                                                  })
+                                                  .catch(angular.noop);
                                       })
                                       .catch(angular.noop);
-                              })
-                              .catch(angular.noop);
-                      })
-                      .catch(angular.noop);
+                            })
+                            .catch(angular.noop);
 
-              // Inky's move.
-              getEnemyPromise(enemies.inky, 1, 60, enemyMovementMode.SCATTER)
-                      .then(function() {
-                          getEnemyPromise(enemies.inky, 1, 180, enemyMovementMode.CHASE)
-                                .then(function() {
-                                    getEnemyPromise(enemies.inky, 1, 60, enemyMovementMode.SCATTER)
-                                            .then(function() {
-                                                getEnemyPromise(enemies.inky, 1, undefined, enemyMovementMode.CHASE);
-                                            })
-                                            .catch(angular.noop);
-                                })
-                                .catch(angular.noop);
-                      })
-                      .catch(angular.noop);
-
-              // Clyde's move.
-              getEnemyPromise(enemies.clyde, 1, 60, enemyMovementMode.SCATTER)
-                      .then(function() {
-                          getEnemyPromise(enemies.clyde, 1, 180, enemyMovementMode.CHASE)
-                                .then(function() {
-                                    getEnemyPromise(enemies.clyde, 1, 60, enemyMovementMode.SCATTER)
-                                            .then(function() {
-                                                getEnemyPromise(enemies.clyde, 1, undefined, enemyMovementMode.CHASE);
-                                            })
-                                            .catch(angular.noop);
-                                })
-                                .catch(angular.noop);
-                      })
-                      .catch(angular.noop);                  
+                    // Clyde's move.
+                    getEnemyPromise(enemies.clyde, 1, 60, enemyMovementMode.SCATTER)
+                            .then(function() {
+                                getEnemyPromise(enemies.clyde, 1, 180, enemyMovementMode.CHASE)
+                                      .then(function() {
+                                          getEnemyPromise(enemies.clyde, 1, 60, enemyMovementMode.SCATTER)
+                                                  .then(function() {
+                                                      getEnemyPromise(enemies.clyde, 1, undefined, enemyMovementMode.CHASE);
+                                                  })
+                                                  .catch(angular.noop);
+                                      })
+                                      .catch(angular.noop);
+                            })
+                            .catch(angular.noop);                  
+              }
 
               // A function that replaces the template present at the 'index'
               // by 'htmlString'
@@ -314,29 +316,24 @@ function pacmanGameDirective(
 
               function getEnemyPromise(enemy, speed, count, mode) {
                   var resPromise = $interval(function() {  
-                      // Move the enemies only in production environment since 
-                      // the tests for enemy movements will be covered in 
-                      // enemy-service-test. 
-                      if (scope.environment === 'Production') {
-                        intervalPromises.push(resPromise);
-                        var currentEnemyPos = enemy.getCurrentPos();
-                        var nextEnemyPos = enemy.getNextPos(
-                                mode, prevPacmanPos, currentPacmanPos);
-                        var templateToReplaceWith = spaceWithNoFoodHTML;
-                        if (gameboard.board.charAt(currentEnemyPos)=== '.'
-                                && visited[currentEnemyPos] === false) {
-                            templateToReplaceWith = dotHTML;
-                        } else if (gameboard.board.charAt(currentEnemyPos)
-                                === 'G') {
-                            templateToReplaceWith = monsterGateHTML;
-                        } else if (gameboard.board.charAt(currentEnemyPos)
-                                === 'C' &&
-                                visited[currentEnemyPos] === false) {
-                            templateToReplaceWith = cherryHTML;
-                        }
-                        replaceHTML(currentEnemyPos, templateToReplaceWith);
-                        replaceHTML(nextEnemyPos, enemy.getHTMLTemplate());
+                      intervalPromises.push(resPromise);
+                      var currentEnemyPos = enemy.getCurrentPos();
+                      var nextEnemyPos = enemy.getNextPos(
+                              mode, prevPacmanPos, currentPacmanPos);
+                      var templateToReplaceWith = spaceWithNoFoodHTML;
+                      if (gameboard.board.charAt(currentEnemyPos)=== '.'
+                              && visited[currentEnemyPos] === false) {
+                          templateToReplaceWith = dotHTML;
+                      } else if (gameboard.board.charAt(currentEnemyPos)
+                              === 'G') {
+                          templateToReplaceWith = monsterGateHTML;
+                      } else if (gameboard.board.charAt(currentEnemyPos)
+                              === 'C' &&
+                              visited[currentEnemyPos] === false) {
+                          templateToReplaceWith = cherryHTML;
                       }
+                      replaceHTML(currentEnemyPos, templateToReplaceWith);
+                      replaceHTML(nextEnemyPos, enemy.getHTMLTemplate());
                       if (currentEnemyPos === currentPacmanPos) {
                           alert('You lost!');
                           cancelAllEventsAndShowResultTemplate(afterLosingHTML);
