@@ -12,7 +12,7 @@ When an enemy is approaching towards you, then move as fast as you can towards i
 
 ## Screenshots (when played in Chrome Browser)
 
-<img src="screenshots/screenshot.GIF" class="img-responsive" alt="Pacman"> 
+<img src="screenshots/screenshot_beginning.GIF" class="img-responsive" alt="Pacman"> 
 
 ## Languages/Frameworks Used - 
 
